@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>qa-posthog snippet demo</title>
+  <!-- PostHog JS snippet for project qa-posthog (633060) -->
+  <script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="mu yu bu Su init Vu Gu zu Uu Ku il Wu Yu ju rh oh ah uh hh dh capture getExtension Zu pu gh calculateEventProperties ph register register_once register_for_session unregister unregister_for_session Hu mh getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync wh identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset kh shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty yh ih createPersonProfile setInternalOrTestUser bh xu Cu opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing th debug nl Os getPageViewId captureTraceFeedback captureTraceMetric Du".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_wKSZzae4P34ok56USbis5K4SnM5KV4gmndsCTTAFZbY2', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-05-30',
+        person_profiles: 'identified_only',
+    })
+  </script>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 3rem auto; padding: 0 1rem; line-height: 1.5; }
+    button { margin: 0.5rem 0.5rem 0.5rem 0; padding: 0.5rem 1rem; cursor: pointer; }
+    code { background: #f4f4f4; padding: 0.1rem 0.35rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>qa-posthog snippet demo</h1>
+  <p>Minimal static page for PostHog connector QA (project <code>qa-posthog</code> / 633060).</p>
+  <p>Open this page in a browser to send <code>$pageview</code> and (if enabled) session replay.</p>
+  <p>
+    <button type="button" id="btn-signup">Capture qa_posthog_signup</button>
+    <button type="button" id="btn-purchase">Capture qa_posthog_purchase</button>
+    <button type="button" id="btn-identify">Identify as qa-posthog-user-web</button>
+  </p>
+  <p id="status" aria-live="polite"></p>
+  <script>
+    function status(msg) {
+      document.getElementById('status').textContent = msg;
+    }
+    document.getElementById('btn-signup').addEventListener('click', function () {
+      posthog.capture('qa_posthog_signup', { source: 'snippet-demo', qa_seed: 'path-c-web' });
+      status('Sent qa_posthog_signup');
+    });
+    document.getElementById('btn-purchase').addEventListener('click', function () {
+      posthog.capture('qa_posthog_purchase', { source: 'snippet-demo', amount: 9.99, qa_seed: 'path-c-web' });
+      status('Sent qa_posthog_purchase');
+    });
+    document.getElementById('btn-identify').addEventListener('click', function () {
+      posthog.identify('qa-posthog-user-web', { email: 'qa-posthog-web@example.com', qa_seed: 'path-c-web' });
+      status('Identified as qa-posthog-user-web');
+    });
+  </script>
+</body>
+</html>
