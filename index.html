@@ -27,6 +27,7 @@
     <button type="button" id="btn-signup">Capture qa_posthog_signup</button>
     <button type="button" id="btn-purchase">Capture qa_posthog_purchase</button>
     <button type="button" id="btn-identify">Identify as qa-posthog-user-web</button>
+    <button type="button" id="btn-exception">Throw QA exception</button>
   </p>
   <p id="status" aria-live="polite"></p>
   <script>
@@ -44,6 +45,23 @@
     document.getElementById('btn-identify').addEventListener('click', function () {
       posthog.identify('qa-posthog-user-web', { email: 'qa-posthog-web@example.com', qa_seed: 'path-c-web' });
       status('Identified as qa-posthog-user-web');
+    });
+    document.getElementById('btn-exception').addEventListener('click', function () {
+      var err = new Error('qa-posthog deliberate exception for connector QA');
+      err.name = 'QaPosthogDemoError';
+      if (typeof posthog.captureException === 'function') {
+        posthog.captureException(err, { source: 'snippet-demo', qa_seed: 'path-c-web' });
+      } else {
+        posthog.capture('$exception', {
+          $exception_type: err.name,
+          $exception_message: err.message,
+          $exception_source: 'snippet-demo',
+          source: 'snippet-demo',
+          qa_seed: 'path-c-web',
+          $exception_list: [{ type: err.name, value: err.message, mechanism: { handled: true, type: 'generic' } }]
+        });
+      }
+      status('Sent QA exception (check Error tracking)');
     });
   </script>
 </body>
